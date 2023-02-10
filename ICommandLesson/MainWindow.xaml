@@ -11,9 +11,10 @@
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid Background="{Binding BackgroundVM.Color}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.35*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
@@ -34,6 +35,37 @@
             <Button Content="Console Log"
                     Command="{Binding ConsoleLogCommand}"
                     CommandParameter="{Binding ElementName=Messages, Path=SelectedItem}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
+            <TextBlock Text="{Binding PersonVM.Name,
+            StringFormat=Welcome {0}}"/>
+            <TextBox Text="{Binding PersonVM.Name, Mode=OneWayToSource , UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Submit"/> 
+        </StackPanel>
+        
+        
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <Button Content="Red Background"
+                    Background="Red"
+                    Command="{Binding BackgroundRedCommand}"
+                    CommandParameter="{Binding ElementName=RedBtn,Path=Background}"
+                    x:Name="RedBtn"/>
+            <Button Content="Blue Background"
+                    Background="Blue"
+                    Command="{Binding BackgroundRedCommand}"
+                    CommandParameter="{Binding ElementName=BlueBtn,Path=Background}"
+                    x:Name="BlueBtn"/>
+            <Button Content="Yellow Background"
+                    Background="Yellow"
+                    Command="{Binding BackgroundRedCommand}"
+                    CommandParameter="{Binding ElementName=YellowBtn,Path=Background}"
+                    x:Name="YellowBtn"/>
         </StackPanel>
     </Grid>
 </Window>

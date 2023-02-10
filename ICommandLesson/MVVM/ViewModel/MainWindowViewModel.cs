@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media;
 using ICommandLesson.Core;
 using ICommandLesson.MVVM.ViewModel.Commands;
 
@@ -12,8 +13,14 @@ public class MainWindowViewModel
     public MessageCommand DisplayMessageCommand { get; private set; }
 
     public ObservableCollection<string> MyMessages { get; private set; }
+    
+    public PersonViewModel PersonVM { get; private set; }
+    public BackgroundViewModel BackgroundVM { get; private set; }
     public RelayCommand MessageBoxCommand { get; private set; }
     public RelayCommand ConsoleLogCommand { get; private set; }
+
+    public RelayCommand PersonCommand { get; private set; }
+    public RelayCommand BackgroundRedCommand { get; private set; }
     public MainWindowViewModel()
     {
         DisplayMessageCommand = new MessageCommand(ShowMessage);
@@ -28,7 +35,19 @@ public class MainWindowViewModel
 
         MessageBoxCommand = new RelayCommand(DisplayInMessageBox, MessageBoxCanUse);
         ConsoleLogCommand = new RelayCommand(DisplayInConsole, ConsoleCanUse);
+
+        PersonVM = new PersonViewModel();
+        BackgroundVM = new BackgroundViewModel();
+
+        BackgroundRedCommand = new RelayCommand(o =>
+        {
+            BackgroundVM.Color = (Brush)o;
+            
+        });
+
     }
+
+    
 
     public void DisplayInMessageBox(object? message)
     {
